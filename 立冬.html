@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>立冬化学元素祝福</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', 'Noto Serif SC', '楷体', serif;
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0f8ff 50%, #f5f5f5 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            color: #5d7b9c;
+        }
+
+        .wish-display {
+            position: relative;
+            min-height: 500px;
+            margin: 30px auto;
+            perspective: 1000px;
+        }
+
+        .wish-card {
+            position: absolute;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .wish-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .wish-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .btn-next {
+            background: linear-gradient(45deg, #a8d8ea, #7bb4d9);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            outline: none;
+            z-index: 100;
+            position: relative;
+            font-family: 'Times New Roman', 'Noto Serif SC', '楷体', serif;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(45deg, #7bb4d9, #5a9bc8);
+        }
+
+        .btn-next:active {
+            transform: translateY(1px);
+        }
+
+        .counter {
+            margin-top: 15px;
+            font-size: 1rem;
+            opacity: 0.8;
+            z-index: 100;
+            position: relative;
+            color: #5d7b9c;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(200, 200, 200, 0.3);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            color: #5d7b9c;
+        }
+
+        .music-control i {
+            font-size: 1.5rem;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: #a8d8ea;
+            font-size: 1.5rem;
+            user-select: none;
+            z-index: 1;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 100;
+            color: #5d7b9c;
+        }
+
+        /* 特效动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInFromTop {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromBottom {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes rotateIn {
+            from { transform: rotate(-180deg) scale(0.5); opacity: 0; }
+            to { transform: rotate(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes flipIn {
+            0% { transform: perspective(400px) rotateY(90deg); opacity: 0; }
+            40% { transform: perspective(400px) rotateY(-10deg); }
+            70% { transform: perspective(400px) rotateY(10deg); }
+            100% { transform: perspective(400px) rotateY(0deg); opacity: 1; }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .wish-text { font-size: 1rem; }
+            .wish-card { width: 250px; }
+            .btn-next { padding: 12px 30px; }
+        }
+
+        .element-badge {
+            display: inline-block;
+            background: #a8d8ea;
+            color: #2c3e50;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin: 0 2px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-snowflake"></i> 立冬化学元素祝福 <i class="fas fa-atom"></i></h1>
+        <div class="subtitle">点击"下一个祝福"按钮，收获化学元素的温暖祝福</div>
+
+        <div class="wish-display" id="wishDisplay">
+            <!-- 祝福语将在这里动态添加 -->
+        </div>
+
+        <button class="btn-next" id="nextBtn">下一个祝福</button>
+        <div class="counter" id="counter">已收到 0 个祝福</div>
+    </div>
+
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
+    <div class="footer">
+        <p>愿这个冬天，化学元素与您温暖相伴 ❄️</p>
+    </div>
+
+    <!-- 方案1: 使用AudioContext API (绕过自动播放限制) -->
+    <script>
+        // 化学元素立冬祝福语数组
+        const chemistryWishes = [
+            "立冬之际，愿你的生活像<span class='element-badge'>Na</span>遇到<span class='element-badge'>H₂O</span>一样，充满活力与热情！",
+            "愿你的幸福像<span class='element-badge'>C</span>一样稳定，像<span class='element-badge'>He</span>一样轻盈，像<span class='element-badge'>Au</span>一样珍贵！",
+            "立冬时节，愿你的心情像<span class='element-badge'>Fe</span>遇到强磁一样，永远被快乐吸引！",
+            "愿你的健康像<span class='element-badge'>Pt</span>一样稳定，事业像<span class='element-badge'>H</span>气球一样蒸蒸日上！",
+            "立冬到来，愿你的友谊像<span class='element-badge'>C</span>的共价键一样坚固，永不分离！",
+            "愿你的智慧像<span class='element-badge'>Si</span>芯片一样高效，创造力像化学反应一样丰富多彩！",
+            "立冬之际，愿你的每一天都像完美的化学实验，结果总是令人惊喜！",
+            "愿你的爱情像<span class='element-badge'>O₂</span>一样不可或缺，像钻石一样永恒璀璨！",
+            "立冬时节，愿你的快乐像催化剂一样，加速生活中的每一个美好反应！",
+            "愿你的财富像<span class='element-badge'>Ag</span>一样闪耀，健康像<span class='element-badge'>Ti</span>一样强韧！",
+            "立冬到来，愿你的心情像pH试纸遇到碱性溶液一样，永远呈现美丽的蓝色！",
+            "愿你的梦想像电子跃迁一样，从基态直达激发态，绽放绚丽光彩！",
+            "立冬之际，愿你的生活像完美的化学平衡，和谐而美好！",
+            "愿你的每一天都像放热反应一样，充满温暖与能量！",
+            "立冬时节，愿你的幸福像不可逆反应一样，一旦开始就永不停止！"
+        ];
+
+        // 特效类型数组
+        const effects = [
+            'fadeIn',
+            'slideInFromTop',
+            'slideInFromBottom',
+            'zoomIn',
+            'rotateIn',
+            'bounceIn',
+            'flipIn'
+        ];
+
+        // DOM元素
+        const wishDisplay = document.getElementById('wishDisplay');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('counter');
+        const musicControl = document.getElementById('musicControl');
+
+        // 变量初始化
+        let wishCount = 0;
+        let musicPlaying = false;
+        let audioContext = null;
+        let source = null;
+        let audioBuffer = null;
+        let usedPositions = [];
+
+        // 初始化函数
+        function init() {
+            // 创建雪花
+            createSnowflakes();
+
+            // 添加事件监听器
+            nextBtn.addEventListener('click', showNextWish);
+            musicControl.addEventListener('click', toggleMusic);
+
+            // 初始化音乐 - 使用AudioContext API
+            initAudioContext();
+
+            // 更新计数器
+            updateCounter();
+        }
+
+        // 使用AudioContext API初始化音频
+        function initAudioContext() {
+            try {
+                // 创建AudioContext
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioContext = new AudioContext();
+
+                // 加载音频文件
+                loadAudioFile('我期待的不是雪-张妙格.mp3');
+            } catch(e) {
+                console.log("AudioContext初始化失败:", e);
+                // 备用方案：使用常规audio元素
+                initFallbackAudio();
+            }
+        }
+
+        // 使用XMLHttpRequest加载音频文件
+        function loadAudioFile(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // 解码音频数据
+                    audioContext.decodeAudioData(xhr.response,
+                        function(buffer) {
+                            audioBuffer = buffer;
+                            // 音频加载完成，等待用户交互后播放
+                            waitForUserInteraction();
+                        },
+                        function(e) {
+                            console.log('音频解码错误:', e);
+                            initFallbackAudio();
+                        }
+                    );
+                } else {
+                    console.log('音频文件加载失败:', xhr.status);
+                    initFallbackAudio();
+                }
+            };
+            xhr.onerror = function() {
+                console.log('音频文件加载错误');
+                initFallbackAudio();
+            };
+            xhr.send();
+        }
+
+        // 等待用户交互后播放音乐
+        function waitForUserInteraction() {
+            // 用户点击"下一个祝福"按钮时会触发播放
+            console.log("音频已加载，等待用户交互...");
+        }
+
+        // 播放音乐 (AudioContext)
+        function playMusic() {
+            if (!audioBuffer || !audioContext) return;
+
+            try {
+                // 如果音频上下文处于暂停状态，恢复它
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+
+                // 创建新的音频源
+                source = audioContext.createBufferSource();
+                source.buffer = audioBuffer;
+                source.loop = true;
+                source.connect(audioContext.destination);
+                source.start(0);
+                musicPlaying = true;
+                musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+                console.log("背景音乐开始播放 (AudioContext)");
+            } catch(e) {
+                console.log("AudioContext播放失败:", e);
+                initFallbackAudio();
+            }
+        }
+
+        // 备用方案：使用常规audio元素
+        function initFallbackAudio() {
+            // 创建audio元素
+            const audio = document.createElement('audio');
+            audio.loop = true;
+            audio.src = '我期待的不是雪-张妙格.mp3';
+            audio.volume = 0.5;
+
+            // 添加到DOM但隐藏
+            audio.style.display = 'none';
+            document.body.appendChild(audio);
+
+            // 重写播放函数
+            window.playMusic = function() {
+                audio.play().then(() => {
+                    musicPlaying = true;
+                    musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    console.log("背景音乐开始播放 (常规audio)");
+                }).catch(e => {
+                    console.log("常规audio播放失败:", e);
+                });
+            };
+
+            // 重写暂停函数
+            window.pauseMusic = function() {
+                audio.pause();
+                musicPlaying = false;
+                musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            };
+        }
+
+        // 暂停音乐
+        function pauseMusic() {
+            if (source) {
+                source.stop();
+                source = null;
+            }
+            musicPlaying = false;
+            musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        }
+
+        // 切换音乐播放状态
+        function toggleMusic() {
+            if (musicPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        }
+
+        // 显示下一个祝福语
+        function showNextWish() {
+            // 首次点击时尝试播放音乐
+            if (!musicPlaying && wishCount === 0) {
+                playMusic();
+            }
+
+            // 如果祝福语已经全部显示，重置
+            if (wishCount >= chemistryWishes.length) {
+                wishCount = 0;
+                wishDisplay.innerHTML = '';
+                usedPositions = [];
+            }
+
+            // 创建新的祝福卡片
+            const wishCard = document.createElement('div');
+            wishCard.className = 'wish-card';
+            wishCard.innerHTML = `<div class="wish-text">${chemistryWishes[wishCount]}</div>`;
+
+            // 随机选择特效
+            const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+            wishCard.style.animation = `${randomEffect} 0.8s forwards`;
+
+            // 获取随机位置（确保不重叠）
+            const position = getRandomPosition();
+            wishCard.style.left = `${position.x}px`;
+            wishCard.style.top = `${position.y}px`;
+
+            // 随机旋转
+            const randomRotate = Math.random() * 10 - 5;
+            wishCard.style.transform = `rotate(${randomRotate}deg)`;
+
+            // 添加到显示区域
+            wishDisplay.appendChild(wishCard);
+
+            // 增加计数
+            wishCount++;
+            updateCounter();
+
+            // 为卡片添加点击事件，点击后移除
+            wishCard.addEventListener('click', function() {
+                this.style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    this.remove();
+                }, 500);
+            });
+        }
+
+        // 获取随机位置（避免重叠）
+        function getRandomPosition() {
+            const displayRect = wishDisplay.getBoundingClientRect();
+            const cardWidth = 280;
+            const cardHeight = 150;
+            const padding = 20;
+
+            let attempts = 0;
+            let position;
+            let validPosition = false;
+
+            while (!validPosition && attempts < 100) {
+                position = {
+                    x: Math.random() * (displayRect.width - cardWidth - padding * 2) + padding,
+                    y: Math.random() * (displayRect.height - cardHeight - padding * 2) + padding
+                };
+
+                // 检查是否与现有卡片重叠
+                validPosition = !usedPositions.some(usedPos => {
+                    return (
+                        position.x < usedPos.x + cardWidth + padding &&
+                        position.x + cardWidth + padding > usedPos.x &&
+                        position.y < usedPos.y + cardHeight + padding &&
+                        position.y + cardHeight + padding > usedPos.y
+                    );
+                });
+
+                attempts++;
+            }
+
+            usedPositions.push(position);
+            return position;
+        }
+
+        // 更新计数器
+        function updateCounter() {
+            counter.textContent = `已收到 ${wishCount} 个祝福`;
+        }
+
+        // 创建雪花效果
+        function createSnowflakes() {
+            const snowflakeContainer = document.body;
+            const snowflakes = ['❄', '❅', '❆', '•'];
+
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.top = Math.random() * 100 + 'vh';
+
+                const size = Math.random() * 20 + 10;
+                snowflake.style.fontSize = size + 'px';
+
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 10 + 10;
+
+                snowflake.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+
+                snowflakeContainer.appendChild(snowflake);
+            }
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fall {
+                    0% { transform: translateY(-100px) rotate(0deg); }
+                    100% { transform: translateY(100vh) rotate(360deg); }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; transform: scale(0.8); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // 初始化
+        window.onload = init;
+    </script>
+</body>
+</html>
